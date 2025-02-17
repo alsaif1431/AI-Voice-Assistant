@@ -1,0 +1,7 @@
+langchain==0.0.352
+openai==1.2.0
+python-dotenv==1.0.0
+requests==2.31.0
+streamlit==1.29.0
+audio-recorder-streamlit==0.0.8
+
