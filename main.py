@@ -89,34 +89,6 @@ def main():
                         audio_data = text_to_speech_ai(message["content"])
                         st.audio(audio_data, format="audio/mp3")
 
-    footer_html = """
-    <div style="display: flex; justify-content: center; align-items: center; padding: 10px;">
-        <div style="text-align: left;">
-            <p>
-                Connect: 
-                <a href="https://github.com/alsaif1431" target="_blank">GitHub</a> | 
-                <a href="https://www.linkedin.com/in/saif-pasha-59643b197/" target="_blank">LinkedIn</a>
-            </p>
-            <p>© 2024 Tech Voice Assistant. All rights reserved.</p>
-        </div>
-    </div>
-    """
-
-    footer_css = """
-    <style>
-    .footer {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        background-color: white;
-        border-top: 1px solid #e0e0e0;
-    }
-    </style>
-    """
-
-    footer = f"{footer_css}<div class='footer'>{footer_html}</div>"
-    st.markdown(footer, unsafe_allow_html=True)
-
 
 
 
