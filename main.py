@@ -89,10 +89,9 @@ def main():
                         audio_data = text_to_speech_ai(message["content"])
                         st.audio(audio_data, format="audio/mp3")
 
-    # Footer: Connect section placed at the bottom-right of the main page
     footer_html = """
-    <div style="display: flex; justify-content: flex-end; align-items: center; padding: 10px;">
-        <div style="text-align: right;">
+    <div style="display: flex; justify-content: center; align-items: center; padding: 10px;">
+        <div style="text-align: left;">
             <p>
                 Connect: 
                 <a href="https://github.com/alsaif1431" target="_blank">GitHub</a> | 
@@ -114,8 +113,12 @@ def main():
     }
     </style>
     """
+
     footer = f"{footer_css}<div class='footer'>{footer_html}</div>"
     st.markdown(footer, unsafe_allow_html=True)
+
+
+
 
 if __name__ == "__main__":
     main()
