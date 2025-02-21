@@ -1,141 +1,121 @@
 import os
 import streamlit as st
 from audio_recorder_streamlit import audio_recorder
-from Technical_Voice_Assistant.functions import transcribe_text_to_voice, chat_completion_call, text_to_speech_ai
+from Technical_Voice_Assistant.functions import (
+    transcribe_text_to_voice,
+    chat_completion_call,
+    text_to_speech_ai,
+)
 from PIL import Image
+from dotenv import load_dotenv
 
-api_key = os.getenv("OPENAI_API_KEY")
-
-
-
-if api_key is None:
-    raise ValueError(
-        "OpenAI API key not found. Please set the OPENAI_API_KEY environment variable.")
+load_dotenv(override=True)
 
 def main():
-
+    # Set page configuration
     favicon = Image.open("favicon.png")
     st.set_page_config(
-        page_title="GenAI Demo | Trigent AXLR8 Labs",
-        page_icon=favicon,
+        page_title="Tech Voice Assistant",
+        page_icon="🤖",
         layout="wide",
-        initial_sidebar_state="expanded"
+        initial_sidebar_state="expanded",
     )
 
-    # Sidebar Logo
-    logo_html = """
-    <style>
-        [data-testid="stSidebarNav"] {
-            background-image: url(https://trigent.com/wp-content/uploads/Trigent_Axlr8_Labs.png);
-            background-repeat: no-repeat;
-            background-position: 20px 20px;
-            background-size: 80%;
-        }
-    </style>
-    """
-    st.sidebar.markdown(logo_html, unsafe_allow_html=True)
+    # Detailed sidebar content with descriptive information and contact details
+    sidebar_content = """
+    # Tech Voice Assistant
 
-    
+    ## About
+    Tech Voice Assistant is your personal AI-powered technical support tool.  
+    It leverages advanced voice recognition and AI capabilities to provide quick and accurate answers to your software-related queries.  
+    Simply record your issue and let the assistant guide you with troubleshooting and solutions.
+
+    ## Usage Instructions
+    1. Click the record button below.
+    2. Clearly state your software-related issue.
+    3. Wait as the assistant processes your query.
+    4. Receive both a text and audio response with helpful information.
+
+    ## Contact
+    For inquiries, feedback, or support, please connect with us:
+    - **GitHub:** [alsaif1431](https://github.com/alsaif1431)
+    - **LinkedIn:** [Saif Pasha](https://www.linkedin.com/in/saif-pasha-59643b197/)
+    """
+    st.sidebar.markdown(sidebar_content, unsafe_allow_html=True)
+
     if "chat_history" not in st.session_state:
         st.session_state["chat_history"] = []
 
     if "audio_counter" not in st.session_state:
         st.session_state["audio_counter"] = 0
 
-    st.title("Technical voice assistant 💬")
+    st.title("Technical Voice Assistant 💬")
 
-    
-    if api_key:
-        success_message_html = """
-        <span style='color:green; font-weight:bold;'>✅ Powering the Chatbot using Open AI's 
-        <a href='https://platform.openai.com/docs/models/gpt-3-5' target='_blank'>gpt-3.5-turbo-0613 model</a>!</span>
+
+    st.markdown(
         """
+        ## Bringing you to AI Tech Support
 
-        # Display the success message with the link
-        st.markdown(success_message_html, unsafe_allow_html=True)
-        openai_api_key = api_key
-    else:
-        openai_api_key = st.text_input(
-            'Enter your OPENAI_API_KEY: ', type='password')
-        if not openai_api_key:
-            st.warning('Please, enter your OPENAI_API_KEY', icon='⚠️')
-        else:
-            st.success('Ask Tech voice assistant about your software.', icon='👉')
+        Your Technical Assistant for all your software-related queries.  
+        Please feel free to ask any questions you have.
+        
+        ------------------------------------------------------------------------------------------
+        """
+    )
 
-    st.markdown("""
-            ## **Bringing you to Ai Tech Support**
-            
-        **The Technical Assistant all you need 
-        for your software related queries of our organization.
-        Please feel free to ask any questions you have.**
-
-------------------------------------------------------------------------------------------
-    """)
-
-
-
-    audio_bytes = audio_recorder(text="Record your issue here and please wait",
-                                 recording_color="#e8b62c", neutral_color="#6aa36f", icon_size="2x")
+    audio_bytes = audio_recorder(
+        text="Record your issue here and please wait",
+        recording_color="#e8b62c",
+        neutral_color="#6aa36f",
+        icon_size="2x",
+    )
     if audio_bytes:
-        with st.spinner("Thinking.."):
-            audio_location="audios/audio_file.wav"  #This is saif voice 
+        with st.spinner("Thinking..."):
+            audio_location = "audios/audio_file.wav"  # Recorded voice file location
             with open(audio_location, "wb") as f:
                 f.write(audio_bytes)
 
             text = transcribe_text_to_voice(audio_location)
-            st.session_state['chat_history'].append({'role': 'user', 'content': text})
+            st.session_state["chat_history"].append({"role": "user", "content": text})
 
             api_response = chat_completion_call(text)
-            st.session_state['chat_history'].append({'role': 'assistant', 'content': api_response})
+            st.session_state["chat_history"].append({"role": "assistant", "content": api_response})
 
-            reversed_chat_history = st.session_state['chat_history'][::-1]
+            reversed_chat_history = st.session_state["chat_history"][::-1]
             for message in reversed_chat_history:
                 with st.empty() and st.chat_message(message["role"]):
-                    st.markdown(message['content'])
-
+                    st.markdown(message["content"])
                     if message["role"] == "assistant":
-                        audio_data = text_to_speech_ai(message['content'])
-                        st.audio(audio_data, format='audio/mp3')
+                        audio_data = text_to_speech_ai(message["content"])
+                        st.audio(audio_data, format="audio/mp3")
 
-
-    
-    # Footer
+    # Footer: Connect section placed at the bottom-right of the main page
     footer_html = """
-    <div style="text-align: right; margin-right: 10%;">
-        <p>
-            Copyright © 2024, Trigent Software, Inc. All rights reserved. | 
-            <a href="https://www.facebook.com/TrigentSoftware/" target="_blank">Facebook</a> |
-            <a href="https://www.linkedin.com/company/trigent-software/" target="_blank">LinkedIn</a> |
-            <a href="https://www.twitter.com/trigentsoftware/" target="_blank">Twitter</a> |
-            <a href="https://www.youtube.com/channel/UCNhAbLhnkeVvV6MBFUZ8hOw" target="_blank">YouTube</a>
-        </p>
+    <div style="display: flex; justify-content: flex-end; align-items: center; padding: 10px;">
+        <div style="text-align: right;">
+            <p>
+                Connect: 
+                <a href="https://github.com/alsaif1431" target="_blank">GitHub</a> | 
+                <a href="https://www.linkedin.com/in/saif-pasha-59643b197/" target="_blank">LinkedIn</a>
+            </p>
+            <p>© 2024 Tech Voice Assistant. All rights reserved.</p>
+        </div>
     </div>
     """
 
-    # Custom CSS to make the footer sticky
     footer_css = """
     <style>
     .footer {
         position: fixed;
-        z-index: 1000;
-        left: 0;
         bottom: 0;
         width: 100%;
         background-color: white;
-        color: black;
-        text-align: center;
-    }
-    [data-testid="stSidebarNavItems"] {
-        max-height: 100%!important;
+        border-top: 1px solid #e0e0e0;
     }
     </style>
     """
-
-    # Combining the HTML and CSS
     footer = f"{footer_css}<div class='footer'>{footer_html}</div>"
-
-    # Rendering the footer
     st.markdown(footer, unsafe_allow_html=True)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
