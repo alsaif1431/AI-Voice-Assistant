@@ -6,7 +6,7 @@ from Technical_Voice_Assistant.functions import (
     chat_completion_call,
     text_to_speech_ai,
 )
-from PIL import Image
+from PIL import Image 
 from dotenv import load_dotenv
 
 load_dotenv(override=True)
