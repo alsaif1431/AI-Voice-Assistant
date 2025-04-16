@@ -25,4 +25,4 @@ Ensure you have necessary API keys for services like OpenAI. Add these to your e
 
 
 ## Run the application
-streamlit run main.py
+streamlit run main.py 
