@@ -3,7 +3,7 @@
 ## Overview   
 The Technical Voice Assistant harnesses the power of GPT-4 language models to operate as an Technical Voice asistant. This application facilitates Technical support to the customer Queries. 
 
-## Features
+## Features 
 - Human-like Voice Recognition: Recognizes human voice input and provides responses in a natural conversational manner.
 - Streamlit GUI: Offers an intuitive interface for users to input queries or topics and generate detailed reports effortlessly.
 
