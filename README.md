@@ -1,6 +1,6 @@
 ## Technical Voice Assistant 🧪🔍  
 
-## Overview    
+## Overview
 The Technical Voice Assistant harnesses the power of GPT-4 language models to operate as an Technical Voice asistant. This application facilitates Technical support to the customer Queries. 
 
 ## Features 
