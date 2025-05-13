@@ -1,5 +1,5 @@
 from openai import OpenAI  
-import streamlit as st 
+import streamlit as st  
 import io
 from langchain_openai.chat_models import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
