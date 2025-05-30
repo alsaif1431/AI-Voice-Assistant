@@ -14,7 +14,7 @@ git clone git@github.com:alsaif1431/AI-Voice-Assistant.git
 cd TechVoice
 
 
-## Installation 
+## Installation  
 Installation of necessary libraries. (List them with a requirements.txt file)
 pip install -r requirements.txt
 
