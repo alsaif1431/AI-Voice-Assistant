@@ -9,7 +9,7 @@ The Technical Voice Assistant harnesses the power of GPT-4 language models to op
 
 ## Setup
 Clone this repository:  
-git clone git@github.com:alsaif1431/AI-Voice-Assistant.git
+git clone git@github.com:alsaif1431/AI-Voice-Assistant.git 
 
 cd TechVoice
 
