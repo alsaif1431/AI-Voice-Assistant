@@ -5,7 +5,7 @@ The Technical Voice Assistant harnesses the power of GPT-4 language models to op
 
 ## Features 
 - Human-like Voice Recognition: Recognizes human voice input and provides responses in a natural conversational manner.
-- Streamlit GUI: Offers an intuitive interface for users to input queries or topics and generate detailed reports effortlessly.
+- Streamlit GUI: Offers an intuitive interface for users to input queries or topics and generate detailed reports effortlessly. 
 
 ## Setup
 Clone this repository:  
